@@ -10,6 +10,13 @@ router.route('/')
 	.post(postRouteHandler)
 
 async function postRouteHandler(req: Request, res: Response): Promise<void> {
+
+	// Validate the mail address of the incoming feedback
+	if (validateEmail(req.body.email)) {
+		res.send('invalid_mail').status(400).end();
+		return;
+	}
+
 	// Build the webhook content
 	const webhook = {
 		username: 'Spyfall Feedback',
@@ -35,4 +42,9 @@ async function postRouteHandler(req: Request, res: Response): Promise<void> {
 		// TODO log the error
 		res.send('error_while_sending').status(500).end();
 	}
+}
+
+function validateEmail(email: string) {
+	const re = /^(([^<>()[]\.,;:\s@"]+(.[^<>()[]\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/;
+	return re.test(String(email).toLowerCase());
 }
