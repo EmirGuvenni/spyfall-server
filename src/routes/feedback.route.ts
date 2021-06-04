@@ -1,15 +1,27 @@
 // Import libraries
-import { DISCORD_AVATAR_URL, DISCORD_EMBED_COLOR } from "../config/constants";
 import axios from "axios";
 import { Router, Request, Response } from "express";
+import logger from "../config/logger";
 
-// Inıtialize a router
+// Import config
+import { DISCORD_AVATAR_URL, DISCORD_EMBED_COLOR } from "../config/constants";
+
+// Initialize a router
 const router: Router = Router();
 
 router.route('/')
 	.post(postRouteHandler)
 
+function validateEmail(email: string) {
+	const re = /^(([^<>()[]\.,;:\s@"]+(.[^<>()[]\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/;
+	return re.test(String(email).toLowerCase());
+}
+
 async function postRouteHandler(req: Request, res: Response): Promise<void> {
+	let email: string = req.body.email;
+	let name: string = req.body.name;
+	let message: string = req.body.message;
+	let type: string = req.body.type;
 
 	// Validate the mail address of the incoming feedback
 	if (validateEmail(req.body.email)) {
@@ -24,8 +36,10 @@ async function postRouteHandler(req: Request, res: Response): Promise<void> {
 
 		color: DISCORD_EMBED_COLOR,
 
-		title: `New report: ${req.body.type}`,
-		content: `📧**Email:** \`\`\`${req.body.email}\`\`\`\n👩**Name:** \`\`\`${req.body.name}\`\`\`\n💬**Message:** \`\`\`${req.body.message}\`\`\``,
+		title: `New report: ${type}`,
+		content: `📧**Email:** \`\`\`${email}\`\`\`\n` +
+			`👩**Name:** \`\`\`${name}\`\`\`\n` +
+			`💬**Message:** \`\`\`${message}\`\`\``,
 
 		timestamp: new Date().toISOString()
 	}
@@ -39,14 +53,15 @@ async function postRouteHandler(req: Request, res: Response): Promise<void> {
 		res.send('successfully_sent').status(200).end();
 	}
 	catch (err) {
-		// TODO log the error
+		logger.error(
+			'Failed to send a webhook.\n' +
+			`Email: ${email}\n` +
+			`Name: ${name}\n` +
+			`Type: ${type}\n` +
+			`Message: ${message}\n`
+		);
 		res.send('error_while_sending').status(500).end();
 	}
-}
-
-function validateEmail(email: string) {
-	const re = /^(([^<>()[]\.,;:\s@"]+(.[^<>()[]\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/;
-	return re.test(String(email).toLowerCase());
 }
 
 export default router;
