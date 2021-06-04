@@ -1,4 +1,4 @@
-import * as config from "@config/constants";
+import * as config from "../config/constants";
 
 interface QuestionOptions {
 	roomID: string;
