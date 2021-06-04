@@ -40,7 +40,9 @@ export const WEBSITE_URL: string = 'https://';
 export const ROOM_ID_LENGTH: number = 6;
 export const MAX_ROOM_NAME_LENGTH: number = 12;
 export const ROOM_ID_CHARS: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-export const MAX_TIMER_LIMIT_MIN: number = 30;
+
+export const MIN_TIMER_LIMIT: number = 60;
+export const MAX_TIMER_LIMIT: number = 3600;
 
 export const MAX_PLAYER_LIMIT: number = 16;
 export const MIN_PLAYER_LIMIT: number = 4;
