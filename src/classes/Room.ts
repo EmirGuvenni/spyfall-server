@@ -7,35 +7,30 @@ import Question from "./Question";
 import { G_rooms } from "../index";
 
 // Import config
-import * as config from "@config/constants";
+import * as config from "../config/constants";
 
 interface RoomOptions {
 	name: string;
-	password: string;
 	language: string;
 	isPublic: boolean;
 	host: Player;
 
 	locations: Location[];
-	players: Map<string, Player>;
 
 	spyCount: number;
-	timerMinutes: number;
-	timerSeconds: number;
 }
 
 export default class Room {
 	public readonly id: string = generateRoomID();
 	public name: string;
 	public icon: string = getRandomIcon();
-	public password: string;
 	public language: string;
 	public isPublic: boolean;
 
 	public isPlaying: boolean = false;
 
 	public host: Player;
-	public players: Map<string, Player>; // Key: player.id
+	public players: Map<string, Player> = new Map(); // Key: player.id
 
 	public spyCount: number;
 	public currentLocation?: string;
@@ -45,12 +40,10 @@ export default class Room {
 
 	constructor(options: RoomOptions) {
 		this.name = options.name;
-		this.password = options.password;
 		this.language = options.language;
 		this.isPublic = options.isPublic;
 
 		this.host = options.host;
-		this.players = options.players;
 
 		this.spyCount = options.spyCount;
 		this.locations = options.locations;
