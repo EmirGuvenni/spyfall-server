@@ -2,10 +2,10 @@
 import { Router, Request, Response } from "express";
 
 // Import rooms
-import { G_rooms } from "@index";
+import { G_rooms } from "../index";
 
 // Import classes
-import Room from "@class/Room";
+import Room from "../classes/Room";
 
 const router: Router = Router();
 
@@ -62,3 +62,5 @@ function getRouteHandler(req: Request, res: Response): void {
 			res.send('no_rooms_found').end();
 	})
 }
+
+export default router;
