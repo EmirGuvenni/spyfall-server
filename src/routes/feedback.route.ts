@@ -1,5 +1,5 @@
 // Import libraries
-import { DISCORD_AVATAR_URL, DISCORD_EMBED_COLOR } from "@config/constants";
+import { DISCORD_AVATAR_URL, DISCORD_EMBED_COLOR } from "../config/constants";
 import axios from "axios";
 import { Router, Request, Response } from "express";
 
@@ -48,3 +48,5 @@ function validateEmail(email: string) {
 	const re = /^(([^<>()[]\.,;:\s@"]+(.[^<>()[]\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/;
 	return re.test(String(email).toLowerCase());
 }
+
+export default router;
