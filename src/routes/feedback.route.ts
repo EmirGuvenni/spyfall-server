@@ -13,8 +13,8 @@ router.route('/')
 	.post(postRouteHandler)
 
 function validateEmail(email: string) {
-	const re = /^(([^<>()[]\.,;:\s@"]+(.[^<>()[]\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/;
-	return re.test(String(email).toLowerCase());
+	const regex: RegExp = /^(([^<>()[]\.,;:\s@"]+(.[^<>()[]\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/;
+	return regex.test(String(email).toLowerCase());
 }
 
 async function postRouteHandler(req: Request, res: Response): Promise<void> {
@@ -29,19 +29,23 @@ async function postRouteHandler(req: Request, res: Response): Promise<void> {
 		return;
 	}
 
-	// Build the webhook content
+	// Build the webhook embed
 	const webhook = {
 		username: 'Spyfall Feedback',
 		avatar_url: DISCORD_AVATAR_URL,
 
-		color: DISCORD_EMBED_COLOR,
+		embeds: [
+			{
+				color: DISCORD_EMBED_COLOR,
 
-		title: `New report: ${type}`,
-		content: `📧**Email:** \`\`\`${email}\`\`\`\n` +
-			`👩**Name:** \`\`\`${name}\`\`\`\n` +
-			`💬**Message:** \`\`\`${message}\`\`\``,
+				title: `New report: ${type}`,
+				description: `📧**Email:** \`${email}\`\n` +
+					`👩**Name:** \`${name}\`\n` +
+					`💬**Message:** \`${message}\``,
 
-		timestamp: new Date().toISOString()
+				timestamp: new Date().toISOString()
+			}
+		]
 	}
 
 	try {
@@ -54,11 +58,11 @@ async function postRouteHandler(req: Request, res: Response): Promise<void> {
 	}
 	catch (err) {
 		logger.error(
-			'Failed to send a webhook.\n' +
-			`Email: ${email}\n` +
-			`Name: ${name}\n` +
-			`Type: ${type}\n` +
-			`Message: ${message}\n`
+			'Failed to send a webhook., ' +
+			`Email: ${email}, ` +
+			`Name: ${name}, ` +
+			`Type: ${type}, ` +
+			`Message: ${message}`
 		);
 		res.send('error_while_sending').status(500).end();
 	}
