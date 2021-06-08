@@ -1,0 +1,16 @@
+FROM node:14.15.1
+
+RUN apt-get update \
+	&& apt-get install -
+
+WORKDIR /spyfall-server
+COPY . /spyfall-server
+
+RUN npm i -g typescript
+RUN npm i
+RUN npm run build
+
+ENV PORT=3000
+ENV DISCORD_WEBHOOK=https://discord.com/api/webhooks/...
+
+CMD npm start
