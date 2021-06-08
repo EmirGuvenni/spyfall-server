@@ -35,20 +35,20 @@ function getRouteHandler(req: Request, res: Response): void {
 		if (keys) {
 			for (let key of keys) {
 				// Get the room
-				G_rooms.get(key, (err, room) => {
-					if (err || !room) return;
+				G_rooms.get(key, (err, roomJSON) => {
+					if (err || !roomJSON) return;
 
-					let roomParsed: Room = JSON.parse(room);
+					let room: Room = JSON.parse(roomJSON);
 
-					if (roomParsed.isPublic) {
+					if (room.isPublic) {
 						let roomDisplay: RoomDisplay = {
-							id: roomParsed.id,
-							name: roomParsed.name,
-							icon: roomParsed.icon,
-							language: roomParsed.language,
+							id: room.id,
+							name: room.name,
+							icon: room.icon,
+							language: room.language,
 
-							spyCount: roomParsed.spyCount,
-							playerCount: roomParsed.players.size
+							spyCount: room.spyCount,
+							playerCount: room.players.size
 						}
 
 						payload.push(roomDisplay);
