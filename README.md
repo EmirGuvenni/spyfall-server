@@ -4,46 +4,8 @@ The original game can be found [here](https://hwint.ru/portfolio-item/spyfall/).
 
 Anchors:
 
-- [Classes](#classes)
 - [Events](#events)
-
-# [Classes](#classes)
-
-## User
-
-```
-public id: string;
-public name: string;
-public avatar: string;
-public socket: Socket;
-
-public player?: Player;
-public lobby?: Lobby;
-```
-
-## Player
-
-```
-public user: User;
-public role: string;
-public isSpy: boolean;
-public lobby: Lobby;
-```
-
-## Lobby
-
-```
-
-```
-
-## Message
-
-```
-public author: Player;
-public content: string;
-public lobby: Lobby;
-public sentAt: Date | number = Date.now();
-```
+- [Technologies](#technologies)
 
 # [Events](#events)
 
