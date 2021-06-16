@@ -1,0 +1,23 @@
+version: "3.9"
+services: 
+  # Redis server
+  redis:
+    image: redis
+    expose: 
+      - 6379
+    deploy:
+      replicas: 2
+    restart: on-failure
+  # Spyfall back-end server
+  backend:
+    build: .
+    depends_on: 
+      - redis
+    links: 
+      - redis
+    ports: 
+      - 3000:3000
+    restart: on-failure
+    environment: 
+      DISCORD_WEBHOOK: https://discord.com/api/webhooks/...
+      PORT: 3000
