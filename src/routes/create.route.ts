@@ -35,6 +35,7 @@ function postRouteHandler(req: Request, res: Response): void {
 	let name: string = req.body.name;
 	let language: string = req.body.language;
 	let isPublic: boolean = req.body.isPublic;
+	let password: string = req.body.password;
 
 	let host: Player = req.body.host;
 	let players: PlayerRequestParameters[] = req.body.players;
@@ -76,6 +77,7 @@ function postRouteHandler(req: Request, res: Response): void {
 		name: name,
 		language: language,
 		isPublic: isPublic,
+		password: password ? password : undefined,
 
 		host: host,
 
