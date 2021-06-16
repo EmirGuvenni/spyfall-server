@@ -13,6 +13,8 @@ interface RoomOptions {
 	name: string;
 	language: string;
 	isPublic: boolean;
+	password?: string;
+
 	host: Player;
 
 	locations: Location[];
@@ -26,6 +28,7 @@ export default class Room {
 	public icon: string = getRandomIcon();
 	public language: string;
 	public isPublic: boolean;
+	public password?: string;
 
 	public isPlaying: boolean = false;
 
@@ -42,6 +45,7 @@ export default class Room {
 		this.name = options.name;
 		this.language = options.language;
 		this.isPublic = options.isPublic;
+		this.password = options.password;
 
 		this.host = options.host;
 
