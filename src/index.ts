@@ -32,6 +32,11 @@ server.listen(port, () => {
 	console.log(`Listening to port: ${port}`);
 });
 
+// Middlewares
+app.use(parser.urlencoded({ extended: true }));
+app.use(helmet());
+app.use(limiter);
+
 // Router
 import roomsRoute from "./routes/rooms.route";
 import createRoute from "./routes/create.route";
@@ -42,11 +47,6 @@ app.use('/rooms', roomsRoute);
 app.use('/create', createRoute);
 app.use('/feedback', feedbackRoute);
 app.use('/room', roomIDRoute);
-
-// Middlewares
-app.use(parser.urlencoded({ extended: true }));
-app.use(helmet());
-app.use(limiter);
 
 // Maps
 export const G_rooms = redis.createClient();
