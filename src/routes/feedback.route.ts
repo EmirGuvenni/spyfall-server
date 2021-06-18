@@ -52,16 +52,19 @@ function validateWebhookElements(elements: WebhookElements) {
 	let invalid: string[] = [];
 	let isValid: boolean = false;
 
-	// Check if all elements are present and valid
+	// E-mail
 	if (!elements.email) missing.push('email');
 	else if (!validateEmail(elements.email)) invalid.push('email');
 
+	// Name
 	if (!elements.name) missing.push('name');
 	else if (!validateName(elements.name)) invalid.push('name');
 
+	// Message
 	if (!elements.message) missing.push('message');
 	else if (!validateMessage(elements.message)) invalid.push('message');
 
+	// Type
 	if (!elements.type) missing.push('type');
 	else if (!validateType(elements.type)) invalid.push('type');
 
