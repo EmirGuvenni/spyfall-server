@@ -34,6 +34,7 @@ server.listen(port, () => {
 
 // Middlewares
 app.use(parser.urlencoded({ extended: true }));
+app.use(parser.json());
 app.use(helmet());
 app.use(limiter);
 
