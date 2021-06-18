@@ -54,7 +54,10 @@ async function postRouteHandler(req: Request, res: Response): Promise<void> {
 			headers: { 'Content-type': 'application/json' }
 		});
 
-		res.send('successfully_sent').status(200).end();
+		res.status(200).json({
+			status: 'ok',
+			message: 'Thank you for your feedback. Your feedback has been delivered to our team.'
+		}).end();
 	}
 	catch (err) {
 		logger.error(
@@ -64,7 +67,11 @@ async function postRouteHandler(req: Request, res: Response): Promise<void> {
 			`Type: ${type}, ` +
 			`Message: ${message}`
 		);
-		res.send('error_while_sending').status(500).end();
+		// Respond with an error
+		res.status(500).json({
+			status: 'error',
+			message: 'Something went wrong. Please try again later.'
+		}).end();
 	}
 }
 
