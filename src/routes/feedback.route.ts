@@ -18,18 +18,14 @@ function validateEmail(email: string) {
 }
 
 async function postRouteHandler(req: Request, res: Response): Promise<void> {
-	let email: string = req.body.email;
-	let name: string = req.body.name;
-	let message: string = req.body.message;
-	let type: string = req.body.type;
-
 	// Validate the mail address of the incoming feedback
 	if (validateEmail(req.body.email)) {
 		res.send('invalid_mail').status(400).end();
+	let webhookElements: WebhookElements = await req.body;
 		return;
 	}
 
-	// Build the webhook embed
+	// Build the Discord webhook object
 	const webhook = {
 		username: 'Spyfall Feedback',
 		avatar_url: DISCORD_AVATAR_URL,
@@ -38,10 +34,10 @@ async function postRouteHandler(req: Request, res: Response): Promise<void> {
 			{
 				color: DISCORD_EMBED_COLOR,
 
-				title: `New report: ${type}`,
-				description: `📧**Email:** \`${email}\`\n` +
-					`👩**Name:** \`${name}\`\n` +
-					`💬**Message:** \`${message}\``,
+				title: `New report: ${webhookElements.type}`,
+				description: `📧**Email:** \`${webhookElements.email}\`\n` +
+					`👩**Name:** \`${webhookElements.name}\`\n` +
+					`💬**Message:** \`${webhookElements.message}\``,
 
 				timestamp: new Date().toISOString()
 			}
@@ -62,10 +58,10 @@ async function postRouteHandler(req: Request, res: Response): Promise<void> {
 	catch (err) {
 		logger.error(
 			'Failed to send a webhook., ' +
-			`Email: ${email}, ` +
-			`Name: ${name}, ` +
-			`Type: ${type}, ` +
-			`Message: ${message}`
+			`Email: ${webhookElements.email}, ` +
+			`Name: ${webhookElements.name}, ` +
+			`Type: ${webhookElements.type}, ` +
+			`Message: ${webhookElements.message}`
 		);
 		// Respond with an error
 		res.status(500).json({
