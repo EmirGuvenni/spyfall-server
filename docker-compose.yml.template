@@ -21,3 +21,4 @@ services:
     environment: 
       DISCORD_WEBHOOK: https://discord.com/api/webhooks/...
       PORT: 3000
+      REDIS_HOST: redis

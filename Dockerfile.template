@@ -12,5 +12,6 @@ RUN npm run build
 
 ENV PORT=3000
 ENV DISCORD_WEBHOOK=https://discord.com/api/webhooks/...
+ENV REDIS_HOST=redis
 
 CMD npm start
