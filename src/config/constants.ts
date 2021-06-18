@@ -16,6 +16,15 @@ avatarsMap.set('', '');
 export const LANGUAGES: string[] = ['tr', 'en'];
 
 /**
+ * Feedback variables
+ */
+export const FEEDBACK_MAX_NAME_LENGTH: number = 16;
+export const FEEDBACK_MAX_EMAIL_LENGTH: number = 64;
+export const FEEDBACK_MIN_MESSAGE_LENGTH: number = 50;
+export const FEEDBACK_MAX_MESSAGE_LENGTH: number = 1024;
+export const FEEDBACK_TYPES: string[] = ['Bug', 'Enhancement', 'Opinion', 'Other'];
+
+/**
  * Server variables
  */
 export const RATE_LIMIT_TIME_MS: number = 1000;
