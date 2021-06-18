@@ -20,7 +20,7 @@ import Question from "./classes/Question";
 const app = express();
 const server = http.createServer(app);
 const io = new socketio.Server(server, { cors: { origin: config.WEBSITE_URL } });
-const pubClient = redis.createClient();
+const pubClient = redis.createClient({ host: process.env.REDIS_HOST });
 const subClient = pubClient.duplicate();
 
 const port = process.env.PORT || 3000;
@@ -50,8 +50,8 @@ app.use('/feedback', feedbackRoute);
 app.use('/room', roomIDRoute);
 
 // Maps
-export const G_rooms = redis.createClient();
-export const G_players = redis.createClient();
+export const G_rooms = redis.createClient({ host: process.env.REDIS_HOST });
+export const G_players = redis.createClient({ host: process.env.REDIS_HOST });
 
 // Socket.io
 io.adapter(createAdapter({ pubClient, subClient }));
