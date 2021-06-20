@@ -7,7 +7,10 @@ router.route('/')
 	.get(getRouteHandler);
 
 function getRouteHandler(req: Request, res: Response): void {
-	res.status(404).send('path_not_found').end();
+	res.status(404).json({
+		status: 'error',
+		message: 'The specified path was not found.'
+	}).end();
 }
 
 export default router;
