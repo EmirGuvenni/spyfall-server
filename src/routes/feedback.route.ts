@@ -69,7 +69,7 @@ function validateWebhookElements(elements: WebhookElements) {
 	else if (!validateType(elements.type)) invalid.push('type');
 
 
-	missing[0] || invalid[0] ? isValid = false : true;
+	missing[0] || invalid[0] ? isValid = false : isValid = true;
 
 	return {
 		isValid,
