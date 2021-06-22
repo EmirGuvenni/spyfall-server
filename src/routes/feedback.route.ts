@@ -27,23 +27,28 @@ interface WebhookElements {
 }
 
 function validateEmail(email: string): boolean {
+	if (typeof email !== 'string') return false;
+
 	const regex: RegExp = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 	return regex.test(String(email).toLowerCase());
 }
 
 function validateName(name: string): boolean {
-	if (name.length > FEEDBACK_MAX_NAME_LENGTH) return false;
+	if (typeof name !== 'string') return false;
+	else if (name.length > FEEDBACK_MAX_NAME_LENGTH) return false;
 	else return true;
 }
 
 function validateMessage(message: string): boolean {
-	if (message.length > FEEDBACK_MAX_MESSAGE_LENGTH) return false;
+	if (typeof message !== 'string') return false;
+	else if (message.length > FEEDBACK_MAX_MESSAGE_LENGTH) return false;
 	else if (message.length < FEEDBACK_MIN_MESSAGE_LENGTH) return false;
 	else return true;
 }
 
 function validateType(type: string): boolean {
-	if (!FEEDBACK_TYPES.includes(type)) return false;
+	if (typeof type !== 'string') return false;
+	else if (!FEEDBACK_TYPES.includes(type)) return false;
 	else return true;
 }
 
