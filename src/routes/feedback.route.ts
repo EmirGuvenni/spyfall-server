@@ -92,7 +92,7 @@ async function postRouteHandler(req: Request, res: Response): Promise<void> {
 		// Missing and invalid elements
 		if (validation.missing[0] && validation.invalid[0])
 			res.status(400).json({
-				status: 'error',
+				success: false,
 				message: 'There are missing and invalid elements.',
 				missing: validation.missing,
 				invalid: validation.invalid
@@ -100,14 +100,14 @@ async function postRouteHandler(req: Request, res: Response): Promise<void> {
 		// Missing elements
 		else if (validation.missing[0])
 			res.status(400).json({
-				status: 'error',
+				success: false,
 				message: 'There are missing elements.',
 				missing: validation.missing
 			}).end();
 		// Invalid elements
 		else if (validation.invalid[0])
 			res.status(400).json({
-				status: 'error',
+				success: false,
 				message: 'There are invalid elements',
 				invalid: validation.invalid
 			}).end();
@@ -140,7 +140,7 @@ async function postRouteHandler(req: Request, res: Response): Promise<void> {
 		});
 
 		res.status(200).json({
-			status: 'ok',
+			success: true,
 			message: 'Thank you for your feedback. Your feedback has been delivered to our team.'
 		}).end();
 	}
@@ -154,7 +154,7 @@ async function postRouteHandler(req: Request, res: Response): Promise<void> {
 		);
 		// Respond with an error
 		res.status(500).json({
-			status: 'error',
+			success: false,
 			message: 'Something went wrong. Please try again later.'
 		}).end();
 	}
