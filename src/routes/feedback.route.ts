@@ -1,4 +1,5 @@
 // Import libraries
+import fs from "fs";
 import axios from "axios";
 import { Router, Request, Response } from "express";
 import logger from "../config/logger";
@@ -145,13 +146,29 @@ async function postRouteHandler(req: Request, res: Response): Promise<void> {
 		}).end();
 	}
 	catch (err) {
-		logger.error(
-			'Failed to send a webhook., ' +
-			`Email: ${webhookElements.email}, ` +
-			`Name: ${webhookElements.name}, ` +
-			`Type: ${webhookElements.type}, ` +
-			`Message: ${webhookElements.message}`
-		);
+		// Log the error
+		logger.error('Failed to send a webhook.');
+
+		let feedbackFilePath: string = 'feedbacks.json';
+		let feedback = {
+			email: webhookElements.email,
+			name: webhookElements.name,
+			type: webhookElements.type,
+			message: webhookElements.type,
+			sentAt: Date.now()
+		};
+
+		// Create the feedback.json file if it doesn't exists
+		if (!fs.existsSync(feedbackFilePath))
+			fs.writeFileSync(feedbackFilePath, '[]');
+
+		// Parse the file content
+		let feedbacksParsed: any[] = JSON.parse(fs.readFileSync(feedbackFilePath, 'utf-8'));
+		feedbacksParsed.push(feedback);
+
+		// Write the new feedback into the file
+		fs.writeFileSync(feedbackFilePath, JSON.stringify(feedbacksParsed));
+
 		// Respond with an error
 		res.status(500).json({
 			success: false,
