@@ -47,7 +47,7 @@ export const WEBSITE_URL: string = 'https://';
  * Room variables
  */
 export const ROOM_ID_LENGTH: number = 6;
-export const MAX_ROOM_NAME_LENGTH: number = 12;
+export const MAX_ROOM_NAME_LENGTH: number = 32;
 
 export const MIN_TIMER_LIMIT: number = 60;
 export const MAX_TIMER_LIMIT: number = 3600;
@@ -82,10 +82,8 @@ export const USER_ID_LENGTH: number = 24;
 export const MAX_LOCATION_LIMIT: number = 10;
 export const MIN_LOCATION_LIMIT: number = 4;
 export const MAX_LOCATION_NAME_LENGTH: number = 32;
-export const MIN_LOCATION_NAME_LENGTH: number = 2;
 
 // Role variables
 export const MAX_ROLE_LIMIT: number = 12;
 export const MIN_ROLE_LIMIT: number = 4
 export const MAX_ROLE_NAME_LENGTH: number = 24;
-export const MIN_ROLE_NAME_LENGTH: number = 2;
