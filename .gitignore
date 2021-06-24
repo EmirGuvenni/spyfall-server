@@ -1,4 +1,5 @@
 .DS_Store
+feedbacks.json
 
 # Docker files
 Dockerfile
