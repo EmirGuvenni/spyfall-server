@@ -1,5 +1,6 @@
 .DS_Store
 feedbacks.json
+.idea
 
 # Docker files
 Dockerfile
