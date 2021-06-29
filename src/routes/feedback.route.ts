@@ -87,28 +87,26 @@ async function postRouteHandler(req: Request, res: Response): Promise<void> {
 
 	// Send an error if elements are missing or invalid
 	if (!validation.isValid) {
+		let message: string = '';
+
 		// Missing and invalid elements
 		if (validation.missing[0] && validation.invalid[0])
-			res.status(400).json({
-				success: false,
-				message: 'There are missing and invalid elements.',
-				missing: validation.missing,
-				invalid: validation.invalid
-			}).end();
+			message = 'There are missing and invalid elements.';
+
 		// Missing elements
 		else if (validation.missing[0])
-			res.status(400).json({
-				success: false,
-				message: 'There are missing elements.',
-				missing: validation.missing
-			}).end();
+			message = 'There are missing elements.';
+
 		// Invalid elements
 		else if (validation.invalid[0])
-			res.status(400).json({
-				success: false,
-				message: 'There are invalid elements',
-				invalid: validation.invalid
-			}).end();
+			message = 'There are invalid elements.';
+
+		res.status(400).json({
+			success: false,
+			message,
+			missing: validation.missing,
+			invalid: validation.invalid
+		}).end();
 		return;
 	}
 
