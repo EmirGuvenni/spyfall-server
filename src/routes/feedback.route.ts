@@ -53,7 +53,7 @@ function validateType(type: any): boolean {
 function validateWebhookElements(elements: WebhookElements) {
 	let missing: string[] = [];
 	let invalid: string[] = [];
-	let isValid: boolean = false;
+	let isValid: boolean;
 
 	// E-mail
 	if (!elements.email) missing.push('email');
