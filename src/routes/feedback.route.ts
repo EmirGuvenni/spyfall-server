@@ -1,7 +1,7 @@
 // Import libraries
 import fs from "fs";
 import axios from "axios";
-import { Router, Request, Response } from "express";
+import {Router, Request, Response} from "express";
 import logger from "../config/logger";
 
 // Import config
@@ -134,15 +134,14 @@ async function postRouteHandler(req: Request, res: Response): Promise<void> {
 	try {
 		// Send the message to the Discord webhook
 		await axios.post(process.env.DISCORD_WEBHOOK!, webhook, {
-			headers: { 'Content-type': 'application/json' }
+			headers: {'Content-type': 'application/json'}
 		});
 
 		res.status(200).json({
 			success: true,
 			message: 'Thank you for your feedback. Your feedback has been delivered to our team.'
 		}).end();
-	}
-	catch (err) {
+	} catch (err) {
 		// Log the error
 		logger.error('Failed to send a webhook.');
 
