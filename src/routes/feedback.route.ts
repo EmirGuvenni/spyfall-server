@@ -36,21 +36,18 @@ function validateEmail(email: string): boolean {
 
 function validateName(name: string): boolean {
 	if (typeof name !== 'string') return false;
-	else if (name.length > FEEDBACK_MAX_NAME_LENGTH) return false;
-	else return true;
+	else return name.length <= FEEDBACK_MAX_NAME_LENGTH;
 }
 
 function validateMessage(message: string): boolean {
 	if (typeof message !== 'string') return false;
 	else if (message.length > FEEDBACK_MAX_MESSAGE_LENGTH) return false;
-	else if (message.length < FEEDBACK_MIN_MESSAGE_LENGTH) return false;
-	else return true;
+	else return message.length >= FEEDBACK_MIN_MESSAGE_LENGTH;
 }
 
 function validateType(type: string): boolean {
 	if (typeof type !== 'string') return false;
-	else if (!FEEDBACK_TYPES.includes(type)) return false;
-	else return true;
+	else return FEEDBACK_TYPES.includes(type);
 }
 
 function validateWebhookElements(elements: WebhookElements) {
