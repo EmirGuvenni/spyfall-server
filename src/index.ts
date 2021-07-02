@@ -43,11 +43,13 @@ import roomsRoute from "./routes/rooms.route";
 import createRoute from "./routes/create.route";
 import roomIDRoute from "./routes/roomID.route";
 import feedbackRoute from "./routes/feedback.route";
+import notFoundRoute from "./routes/404.route";
 
 app.use('/rooms', roomsRoute);
 app.use('/create', createRoute);
 app.use('/feedback', feedbackRoute);
 app.use('/room', roomIDRoute);
+app.use('/*', notFoundRoute);
 
 // Maps
 export const G_rooms = redis.createClient({ host: process.env.REDIS_HOST });

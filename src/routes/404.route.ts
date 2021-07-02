@@ -9,7 +9,6 @@ router.route('/')
 
 function getRouteHandler(req: Request, res: Response): void {
 	res.status(404).json({
-		status: 'error',
 		success: false,
 		message: 'The specified path was not found or does not accept GET requests.'
 	}).end();
@@ -17,3 +16,9 @@ function getRouteHandler(req: Request, res: Response): void {
 
 function postRouteHandler(req: Request, res: Response): void {
 	res.status(404).json({
+		success: false,
+		message: 'The specified path was not found or does not accept POST requests.'
+	}).end();
+}
+
+export default router;
